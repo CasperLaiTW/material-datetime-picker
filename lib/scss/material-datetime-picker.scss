@@ -162,7 +162,14 @@ $primary: #00bcd4;
 }
 
 .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time {
-  opacity: 1
+  opacity: 1;
+
+  .c-datepicker__header-date__hours, .c-datepicker__header-date__minutes {
+    opacity: .6;
+    &.active{
+      opacity: 1;
+    }
+  }
 }
 
 .c-datepicker--show-calendar:checked {
