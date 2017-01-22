@@ -328,9 +328,34 @@ var DateTimePicker = function (_Events) {
         return _this5.clickSubmit();
       }, false);
 
-      this.$('.' + this.options.styles.clockNum).forEach(function (el) {
+      this.$('.c-datepicker__header-date__hours').addEventListener('click', function (e) {
+        return _this5.showHourClock(e);
+      }, false);
+      this.$('.c-datepicker__header-date__minutes').addEventListener('click', function (e) {
+        return _this5.showMinuteClock(e);
+      }, false);
+
+      this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum).forEach(function (el) {
         el.addEventListener('click', function (e) {
           return _this5.clickClock(e);
+        }, false);
+        el.addEventListener('mouseenter', function (e) {
+          return _this5.mouseInHourClock(e);
+        }, false);
+        el.addEventListener('mouseleave', function (e) {
+          return _this5.mouseOutHourClock(e);
+        }, false);
+      });
+
+      this.$('.c-datepicker__clock__minutes .' + this.options.styles.clockNum).forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          return _this5.clickClockMinutes(e);
+        }, false);
+        el.addEventListener('mouseenter', function (e) {
+          return _this5.mouseInMinuteClock(e);
+        }, false);
+        el.addEventListener('mouseleave', function (e) {
+          return _this5.mouseOutMinuteClock(e);
         }, false);
       });
 
@@ -370,6 +395,67 @@ var DateTimePicker = function (_Events) {
       this.value.hour(number);
       this.setTime(this.value);
       return this;
+    }
+  }, {
+    key: 'clickClockMinutes',
+    value: function clickClockMinutes(e) {
+      var number = parseInt(e.currentTarget.getAttribute('data-number'), 10);
+      this.value.minute(number);
+      this.setTime(this.value);
+
+      return this;
+    }
+  }, {
+    key: 'mouseInMinuteClock',
+    value: function mouseInMinuteClock() {
+      var active = this.$('.c-datepicker__clock__minutes .' + this.options.styles.clockNum + '--active');
+
+      if (active) {
+        active.classList.add('hide-hand');
+      }
+    }
+  }, {
+    key: 'mouseOutMinuteClock',
+    value: function mouseOutMinuteClock() {
+      var hideHand = this.$('.c-datepicker__clock__minutes .' + this.options.styles.clockNum + '--active.hide-hand');
+
+      if (hideHand) {
+        hideHand.classList.remove('hide-hand');
+      }
+    }
+  }, {
+    key: 'mouseInHourClock',
+    value: function mouseInHourClock() {
+      var active = this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum + '--active');
+
+      if (active) {
+        active.classList.add('hide-hand');
+      }
+    }
+  }, {
+    key: 'mouseOutHourClock',
+    value: function mouseOutHourClock() {
+      var hideHand = this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum + '--active.hide-hand');
+
+      if (hideHand) {
+        hideHand.classList.remove('hide-hand');
+      }
+    }
+  }, {
+    key: 'showHourClock',
+    value: function showHourClock() {
+      this.$('.c-datepicker__header-date__hours').classList.add('active');
+      this.$('.c-datepicker__header-date__minutes').classList.remove('active');
+      this.$('.c-datepicker__clock__hours').style.display = 'block';
+      this.$('.c-datepicker__clock__minutes').style.display = 'none';
+    }
+  }, {
+    key: 'showMinuteClock',
+    value: function showMinuteClock() {
+      this.$('.c-datepicker__header-date__hours').classList.remove('active');
+      this.$('.c-datepicker__header-date__minutes').classList.add('active');
+      this.$('.c-datepicker__clock__hours').style.display = 'none';
+      this.$('.c-datepicker__clock__minutes').style.display = 'block';
     }
   }, {
     key: 'clickAm',
@@ -458,11 +544,24 @@ var DateTimePicker = function (_Events) {
     value: function setTime(time) {
       var m = moment(time);
       var hour = m.format('HH');
+      var minutes = m.format('mm');
       var hourAsInt = parseInt(hour, 10) % 12;
-
+      var minuteAsInt = parseInt(minutes, 10);
+      var oldActiveHours = this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum + '--active');
+      var oldActiveMinutes = this.$('.c-datepicker__clock__minutes .' + this.options.styles.clockNum + '--active');
       this.$('.js-date-hours').innerText = hour;
+      this.$('.js-date-minutes').innerText = minutes;
 
-      this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum + '[data-number="' + hourAsInt + '"]').classList.add('.' + this.options.styles.clockNum + '--active');
+      if (oldActiveHours) {
+        oldActiveHours.classList.remove(this.options.styles.clockNum + '--active');
+      }
+
+      if (oldActiveMinutes) {
+        oldActiveMinutes.classList.remove(this.options.styles.clockNum + '--active');
+      }
+
+      this.$('.c-datepicker__clock__hours .' + this.options.styles.clockNum + '[data-number="' + hourAsInt + '"]').classList.add(this.options.styles.clockNum + '--active');
+      this.$('.c-datepicker__clock__minutes .' + this.options.styles.clockNum + '[data-number="' + minuteAsInt + '"]').classList.add(this.options.styles.clockNum + '--active');
       this.value.hours(m.hours());
       this.meridiem = this.value.format('a');
 
