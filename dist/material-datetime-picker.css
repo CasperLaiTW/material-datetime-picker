@@ -126,8 +126,10 @@
 
 .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time {
   opacity: 1; }
-  .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__hours.active, .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__minutes.active {
-    background-color: #0097a7; }
+  .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__hours, .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__minutes {
+    opacity: .6; }
+    .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__hours.active, .c-datepicker--show-time:checked ~ .c-datepicker__header .c-datepicker__header-date__time .c-datepicker__header-date__minutes.active {
+      opacity: 1; }
 
 .c-datepicker--show-calendar:checked ~ .c-datepicker__header .c-datepicker__header-date__month, .c-datepicker--show-calendar:checked ~ .c-datepicker__header .c-datepicker__header-date__day {
   opacity: 1; }
