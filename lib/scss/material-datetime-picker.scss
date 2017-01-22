@@ -70,6 +70,10 @@ $primary: #00bcd4;
   padding: 16px 0;
 }
 
+.c-datepicker__header-date__hours, .c-datepicker__header-date__minutes {
+  cursor: pointer;
+}
+
 .c-datepicker__month {
 }
 
@@ -305,10 +309,10 @@ $primary: #00bcd4;
 }
 
 @mixin putOnCircle(
-          $nb-items, //Number of items
-          $circle-size, //Parent size
-          $item-size //Item size
-       ) {
+  $nb-items, //Number of items
+  $circle-size, //Parent size
+  $item-size //Item size
+) {
   $half-item:     $item-size / 2;
   $half-parent: $circle-size / 2;
 
@@ -398,8 +402,8 @@ $primary: #00bcd4;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition:
-      width 100ms ease-in-out,
-      height 100ms ease-in-out
+            width 100ms ease-in-out,
+            height 100ms ease-in-out
   }
   &:hover {
     color: white;
@@ -450,9 +454,7 @@ $primary: #00bcd4;
 }
 
 .c-datepicker__clock__minutes {
-  visibility: hidden;
-  transform: translateY(30px) scale(0.6);
-  opacity: 0;
+  display: none;
 }
 
 .c-datepicker__clock__hours {
